@@ -16,6 +16,12 @@ class APIConfig(QWidget):
         self.ui.register_button.clicked.connect(self.open_website)
         self.ui.mirror_box.currentIndexChanged.connect(self.handle_combo_box)
 
+        # Does there exist a better solution? Yes.
+        self.url = ""
+        self.header = {}
+        self.payload = {}
+        self.handle_combo_box(0)
+
         self.worker_thread = WorkerThread()
         self.worker_thread.response_received.connect(self.handle_response)
 
@@ -33,7 +39,7 @@ class APIConfig(QWidget):
                 "messages": [
                     {
                         "role": "user",
-                        "content": "Echo."
+                        "content": "Hello."
                     }
                 ]
             },
@@ -43,7 +49,7 @@ class APIConfig(QWidget):
                 "messages": [
                     {
                         "role": "user",
-                        "content": "Echo."
+                        "content": "Hello."
                     }
                 ]
             },
@@ -52,7 +58,7 @@ class APIConfig(QWidget):
                 "conversation": [
                     {
                         "role": "user",
-                        "content": "Echo."
+                        "content": "Hello."
                     }
                 ]
             },
@@ -76,7 +82,8 @@ class APIConfig(QWidget):
         }
         self.url = urls[index]
         self.payload = payloads[index]
-        self.headers = headers[index]
+        self.header = headers[index]
+        print(self.url)
 
     def open_website(self):
         import webbrowser
@@ -89,7 +96,9 @@ class APIConfig(QWidget):
         if lineEdit_2_focus or not len(self.ui.lineEdit.text().strip()):
             api_key = self.ui.lineEdit_2.text()
             self.ui.textBrowser.append("INFO: Verifying key (this uses a prompt)...")
+
             self.worker_thread.set_api_key(api_key)
+            self.worker_thread.set_variables(self.url, self.payload, self.header)  # Pass variables to WorkerThread
             self.worker_thread.start()
 
         elif lineEdit_focus or not len(self.ui.lineEdit_2.text().strip()):
@@ -106,6 +115,7 @@ class APIConfig(QWidget):
                 self.ui.textBrowser.append(f"INFO: {message} (try a mirror)")
         else:
             self.ui.textBrowser.append("INFO: Successfully verified key")
+            print(response.json())
 
 class WorkerThread(QThread):
     response_received = pyqtSignal(requests.Response)
@@ -113,26 +123,21 @@ class WorkerThread(QThread):
     def __init__(self):
         super().__init__()
         self.api_key = ""
+        self.url = ""
+        self.payload = ""
+        self.headers = ""
 
     def set_api_key(self, api_key):
         self.api_key = api_key
 
+    def set_variables(self, url, payload, headers):
+        self.url = url
+        self.payload = payload
+        self.headers = headers
+
     def run(self):
-        url = "https://chatgpt53.p.rapidapi.com/"
-        payload = {
-            "messages": [
-                {
-                    "role": "user",
-                    "content": "Echo."
-                }
-            ]
-        }
-        headers = {
-            "content-type": "application/json",
-            "X-RapidAPI-Key": self.api_key.strip(),
-            "X-RapidAPI-Host": "chatgpt53.p.rapidapi.com"
-        }
-        response = requests.post(url, json=payload, headers=headers)
+        print(self.url)
+        response = requests.post(self.url, json=self.payload, headers=self.headers)
         self.response_received.emit(response)
 
 
