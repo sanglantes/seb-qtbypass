@@ -86,7 +86,6 @@ class APIConfig(QDialog):
 
     def start_verification(self):
         api_key = self.ui.lineEdit_2.text()
-        testvar = api_key
         self.handle_combo_box(self.ui.mirror_box.currentIndex())
         self.ui.textBrowser.append("INFO: Verifying key... (this uses a prompt)")
 
@@ -110,6 +109,18 @@ class APIConfig(QDialog):
             else:
                 self.bypass_widget.raise_()
                 self.bypass_widget.activateWindow()
+                
+    def show_key_confirmation_dialog(self):
+        dialog = QMessageBox()
+        dialog.setIcon(QMessageBox.Icon.Information)
+        dialog.setWindowTitle("API Verification")
+        dialog.setText("Successfully verified API key.")
+        dialog.setStandardButtons(QMessageBox.StandardButton.Ok)
+        dialog.exec()
+
+        self.close()  # Close the APIConfig dialog
+        self.api_closed.emit()
+
     def show_api_config(self):
         self.show()
 
