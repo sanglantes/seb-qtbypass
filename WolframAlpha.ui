@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>WolframAlpha Setup</string>
   </property>
-  <widget class="QPushButton" name="connect_button">
+  <widget class="QPushButton" name="pushButton">
    <property name="geometry">
     <rect>
      <x>180</x>
@@ -32,7 +32,7 @@
     <string>Connect</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="help_button">
+  <widget class="QPushButton" name="pushButton_2">
    <property name="geometry">
     <rect>
      <x>310</x>
@@ -55,7 +55,7 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>10</y>
+     <y>20</y>
      <width>171</width>
      <height>21</height>
     </rect>
@@ -70,23 +70,23 @@
     <string>Wolfram API key</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="w_apikey">
+  <widget class="QLineEdit" name="lineEdit">
    <property name="geometry">
     <rect>
      <x>150</x>
-     <y>10</y>
+     <y>20</y>
      <width>281</width>
      <height>21</height>
     </rect>
    </property>
   </widget>
-  <widget class="QTextBrowser" name="w_connection">
+  <widget class="QTextBrowser" name="textBrowser">
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>40</y>
+     <y>51</y>
      <width>411</width>
-     <height>191</height>
+     <height>181</height>
     </rect>
    </property>
    <property name="html">
@@ -102,5 +102,22 @@ li.checked::marker { content: &quot;\2612&quot;; }
   </widget>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>lineEdit</sender>
+   <signal>returnPressed()</signal>
+   <receiver>pushButton</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>236</x>
+     <y>27</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>242</x>
+     <y>269</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

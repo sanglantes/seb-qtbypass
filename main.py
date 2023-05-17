@@ -22,6 +22,8 @@ class Main(QMainWindow):
 	        self.api_widget.raise_()
 	        self.api_widget.activateWindow()
 
+
+
 if __name__ == "__main__":
     import sys
 
