@@ -6,7 +6,6 @@ from bypass import Bypass
 import requests
 
 class APIConfig(QDialog):
-    api_closed = pyqtSignal()
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -19,13 +18,13 @@ class APIConfig(QDialog):
 
         self.ui.mirror_box.currentIndexChanged.connect(self.handle_combo_box)
         self.register_widget = None
-
-        self.bypass_widget = None
+        self.bypass_window = None
 
         # Does there exist a better solution? Yes.
         self.url = ""
         self.header = {}
         self.payload = {}
+        self.api_key = ""
         self.handle_combo_box(0)
 
         self.worker_thread = WorkerThread()
@@ -85,12 +84,11 @@ class APIConfig(QDialog):
             self.register_widget.activateWindow()
 
     def start_verification(self):
-        api_key = self.ui.lineEdit_2.text()
-        testvar = api_key
+        self.api_key = self.ui.lineEdit_2.text().strip()
         self.handle_combo_box(self.ui.mirror_box.currentIndex())
         self.ui.textBrowser.append("INFO: Verifying key... (this uses a prompt)")
 
-        self.worker_thread.set_api_key(api_key)
+        self.worker_thread.set_api_key(self.api_key)
         self.worker_thread.set_variables(self.url, self.payload, self.header)  # Pass variables to WorkerThread
         self.worker_thread.start()
 
@@ -102,14 +100,12 @@ class APIConfig(QDialog):
                 self.ui.textBrowser.append(f"INFO: {message} (try a mirror)")
         else:
             self.ui.textBrowser.append("INFO: Successfully verified key")
-            if self.bypass_widget is None or not self.bypass_widget.isVisible():
-                self.bypass_widget = Bypass(self, self.url, self.header, self.payload)
-                self.bypass_widget.finished.connect(self.show_api_config)
-                self.bypass_widget.show()
-                self.hide()
+            if self.bypass_window is None:
+                self.bypass_window = Bypass(self.url, self.payload, self.header)
             else:
-                self.bypass_widget.raise_()
-                self.bypass_widget.activateWindow()
+                self.bypass_window.update_data(self.url, self.payload, self.header)
+
+            self.bypass_window.show()
     def show_api_config(self):
         self.show()
 
