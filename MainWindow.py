@@ -8,6 +8,14 @@
 
 from PyQt6 import QtCore, QtGui, QtWidgets
 
+import sys, os
+def resource_path(relative_path):
+    """Get absolute path to resource, works for dev and for PyInstaller"""
+    if hasattr(sys, '_MEIPASS'):
+        # For PyInstaller executable
+        return os.path.join(sys._MEIPASS, relative_path)
+    # For development environment
+    return os.path.join(os.path.abspath('.'), relative_path)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -36,15 +44,15 @@ class Ui_MainWindow(object):
         self.label = QtWidgets.QLabel(parent=self.centralwidget)
         self.label.setGeometry(QtCore.QRect(50, 10, 651, 81))
         self.label.setText("")
-        self.label.setPixmap(QtGui.QPixmap("wolfram.png"))
+        self.label.setPixmap(QtGui.QPixmap(resource_path("assets/wolfram.png")))
         self.label.setScaledContents(True)
         self.label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.label.setWordWrap(False)
         self.label.setObjectName("label")
         self.label_2 = QtWidgets.QLabel(parent=self.centralwidget)
-        self.label_2.setGeometry(QtCore.QRect(190, 90, 351, 91))
+        self.label_2.setGeometry(QtCore.QRect(60, 90, 351, 91))
         self.label_2.setText("")
-        self.label_2.setPixmap(QtGui.QPixmap("openai.png"))
+        self.label_2.setPixmap(QtGui.QPixmap(resource_path("assets/openai.png")))
         self.label_2.setScaledContents(True)
         self.label_2.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.label_2.setObjectName("label_2")
