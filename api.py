@@ -93,11 +93,10 @@ class APIConfig(QDialog):
     def start_verification(self):
         self.api_key = self.ui.lineEdit_2.text().strip()
         self.handle_combo_box(self.ui.mirror_box.currentIndex())
-        #self.ui.textBrowser.append("INFO: Verifying key... (this uses a prompt)")
-        self.append_text_with_font("INFO: Verifying key... (this uses a prompt)", 9)  # Example usage
+        self.append_text_with_font("INFO: Verifying key... (this uses a prompt)", 9)
 
         self.worker_thread.set_api_key(self.api_key)
-        self.worker_thread.set_variables(self.url, self.payload, self.header)  # Pass variables to WorkerThread
+        self.worker_thread.set_variables(self.url, self.payload, self.header)
         self.worker_thread.start()
 
     def handle_response(self, response):
@@ -106,17 +105,17 @@ class APIConfig(QDialog):
 
             message = response.json().get('message')
             if message:
-                self.append_text_with_font(f"INFO: {message} (try a mirror)", 9)  # Example usage
+                self.append_text_with_font(f"INFO: {message} (try a mirror)", 9)
         else:
+            self.append_text_with_font("INFO: Successfully verified key", 9)
             self.append_text_with_font("INFO: Successfully verified key", 9)
             if self.bypass_window is None:
                 self.bypass_window = Bypass(self.url, self.payload, self.header)
             else:
                 self.bypass_window.update_data(self.url, self.payload, self.header)
+            self.close()
 
             self.bypass_window.show()
-    def show_api_config(self):
-        self.show()
 
 class WorkerThread(QThread):
     response_received = pyqtSignal(requests.Response)

@@ -144,8 +144,8 @@ li.checked::marker { content: &quot;\2612&quot;; }
   <tabstop>lineEdit_2</tabstop>
   <tabstop>mirror_box</tabstop>
   <tabstop>register_button</tabstop>
-  <tabstop>textBrowser</tabstop>
   <tabstop>submit_button</tabstop>
+  <tabstop>textBrowser</tabstop>
  </tabstops>
  <resources/>
  <connections>

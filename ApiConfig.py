@@ -52,14 +52,16 @@ class Ui_ApiConfig(object):
         self.mirror_box.raise_()
         self.label_4.raise_()
         self.submit_button.raise_()
+        self.register_button.setFocusPolicy(QtCore.Qt.FocusPolicy.NoFocus)
+        self.submit_button.setFocusPolicy(QtCore.Qt.FocusPolicy.NoFocus)
 
         self.retranslateUi(ApiConfig)
         self.lineEdit_2.returnPressed.connect(self.submit_button.click) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(ApiConfig)
         ApiConfig.setTabOrder(self.lineEdit_2, self.mirror_box)
         ApiConfig.setTabOrder(self.mirror_box, self.register_button)
-        ApiConfig.setTabOrder(self.register_button, self.textBrowser)
-        ApiConfig.setTabOrder(self.textBrowser, self.submit_button)
+        ApiConfig.setTabOrder(self.register_button, self.submit_button)
+        ApiConfig.setTabOrder(self.submit_button, self.textBrowser)
 
     def retranslateUi(self, ApiConfig):
         _translate = QtCore.QCoreApplication.translate
