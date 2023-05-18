@@ -24,15 +24,15 @@ class Ui_MainWindow(object):
         font.setItalic(False)
         self.pushButton.setFont(font)
         self.pushButton.setObjectName("pushButton")
-        self.pushButton_3 = QtWidgets.QPushButton(parent=self.centralwidget)
-        self.pushButton_3.setGeometry(QtCore.QRect(550, 390, 161, 51))
+        self.config_wfram = QtWidgets.QPushButton(parent=self.centralwidget)
+        self.config_wfram.setGeometry(QtCore.QRect(550, 390, 161, 51))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(10)
         font.setBold(False)
         font.setItalic(False)
-        self.pushButton_3.setFont(font)
-        self.pushButton_3.setObjectName("pushButton_3")
+        self.config_wfram.setFont(font)
+        self.config_wfram.setObjectName("config_wfram")
         self.label = QtWidgets.QLabel(parent=self.centralwidget)
         self.label.setGeometry(QtCore.QRect(50, 10, 651, 81))
         self.label.setText("")
@@ -65,9 +65,9 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Safe Exam Buster"))
         self.pushButton.setText(_translate("MainWindow", "Configure ChatGPT"))
-        self.pushButton_3.setText(_translate("MainWindow", "Configure WolframAlpha"))
+        self.config_wfram.setText(_translate("MainWindow", "Configure WolframAlpha"))
         self.textBrowser.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"

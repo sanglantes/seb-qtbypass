@@ -16,7 +16,7 @@
   <widget class="QPushButton" name="start_button">
    <property name="geometry">
     <rect>
-     <x>80</x>
+     <x>50</x>
      <y>260</y>
      <width>111</width>
      <height>31</height>
@@ -32,7 +32,7 @@
   <widget class="QPushButton" name="stop_button">
    <property name="geometry">
     <rect>
-     <x>220</x>
+     <x>230</x>
      <y>260</y>
      <width>111</width>
      <height>31</height>
@@ -105,9 +105,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
-     <x>290</x>
+     <x>250</x>
      <y>0</y>
-     <width>81</width>
+     <width>141</width>
      <height>41</height>
     </rect>
    </property>
@@ -128,6 +128,11 @@ li.checked::marker { content: &quot;\2612&quot;; }
    </property>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>start_button</tabstop>
+  <tabstop>stop_button</tabstop>
+  <tabstop>textBrowser</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

@@ -14,7 +14,7 @@ class Ui_ApiConfig(object):
         ApiConfig.setObjectName("ApiConfig")
         ApiConfig.resize(413, 300)
         self.label_2 = QtWidgets.QLabel(parent=ApiConfig)
-        self.label_2.setGeometry(QtCore.QRect(30, 10, 131, 51))
+        self.label_2.setGeometry(QtCore.QRect(20, 10, 101, 51))
         font = QtGui.QFont()
         font.setFamily("Microsoft Sans Serif")
         font.setPointSize(12)
@@ -45,10 +45,21 @@ class Ui_ApiConfig(object):
         self.label_4 = QtWidgets.QLabel(parent=ApiConfig)
         self.label_4.setGeometry(QtCore.QRect(170, 60, 91, 20))
         self.label_4.setObjectName("label_4")
+        self.register_button.raise_()
+        self.label_2.raise_()
+        self.lineEdit_2.raise_()
+        self.textBrowser.raise_()
+        self.mirror_box.raise_()
+        self.label_4.raise_()
+        self.submit_button.raise_()
 
         self.retranslateUi(ApiConfig)
         self.lineEdit_2.returnPressed.connect(self.submit_button.click) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(ApiConfig)
+        ApiConfig.setTabOrder(self.lineEdit_2, self.mirror_box)
+        ApiConfig.setTabOrder(self.mirror_box, self.register_button)
+        ApiConfig.setTabOrder(self.register_button, self.textBrowser)
+        ApiConfig.setTabOrder(self.textBrowser, self.submit_button)
 
     def retranslateUi(self, ApiConfig):
         _translate = QtCore.QCoreApplication.translate
@@ -63,7 +74,7 @@ class Ui_ApiConfig(object):
 "li.unchecked::marker { content: \"\\2610\"; }\n"
 "li.checked::marker { content: \"\\2612\"; }\n"
 "</style></head><body style=\" font-family:\'Microsoft Sans Serif\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Noto Sans\'; font-size:12pt;\">Connection details:</span></p></body></html>"))
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Noto Sans\'; font-size:12pt;\">Connection:</span></p></body></html>"))
         self.mirror_box.setItemText(0, _translate("ApiConfig", "Main (OpenAI)"))
         self.mirror_box.setItemText(1, _translate("ApiConfig", "Mirror (ChatGPT fork)"))
         self.label_4.setText(_translate("ApiConfig", "RapidAPI service"))

@@ -14,11 +14,11 @@ class Ui_BypassMenu(object):
         BypassMenu.setObjectName("BypassMenu")
         BypassMenu.resize(400, 300)
         self.start_button = QtWidgets.QPushButton(parent=BypassMenu)
-        self.start_button.setGeometry(QtCore.QRect(80, 260, 111, 31))
+        self.start_button.setGeometry(QtCore.QRect(50, 260, 111, 31))
         self.start_button.setDefault(False)
         self.start_button.setObjectName("start_button")
         self.stop_button = QtWidgets.QPushButton(parent=BypassMenu)
-        self.stop_button.setGeometry(QtCore.QRect(220, 260, 111, 31))
+        self.stop_button.setGeometry(QtCore.QRect(230, 260, 111, 31))
         self.stop_button.setDefault(False)
         self.stop_button.setObjectName("stop_button")
         self.label = QtWidgets.QLabel(parent=BypassMenu)
@@ -34,7 +34,7 @@ class Ui_BypassMenu(object):
         self.textBrowser.setGeometry(QtCore.QRect(10, 40, 381, 192))
         self.textBrowser.setObjectName("textBrowser")
         self.label_2 = QtWidgets.QLabel(parent=BypassMenu)
-        self.label_2.setGeometry(QtCore.QRect(290, 0, 81, 41))
+        self.label_2.setGeometry(QtCore.QRect(250, 0, 141, 41))
         font = QtGui.QFont()
         font.setFamily("Microsoft Sans Serif")
         font.setPointSize(16)
@@ -45,6 +45,8 @@ class Ui_BypassMenu(object):
 
         self.retranslateUi(BypassMenu)
         QtCore.QMetaObject.connectSlotsByName(BypassMenu)
+        BypassMenu.setTabOrder(self.start_button, self.stop_button)
+        BypassMenu.setTabOrder(self.stop_button, self.textBrowser)
 
     def retranslateUi(self, BypassMenu):
         _translate = QtCore.QCoreApplication.translate

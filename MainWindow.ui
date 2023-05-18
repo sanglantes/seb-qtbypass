@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Securfe Exam Buster</string>
+   <string>Safe Exam Buster</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QPushButton" name="pushButton">
@@ -35,7 +35,7 @@
      <string>Configure ChatGPT</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_3">
+   <widget class="QPushButton" name="config_wfram">
     <property name="geometry">
      <rect>
       <x>550</x>

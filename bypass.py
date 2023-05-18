@@ -1,39 +1,54 @@
 from PyQt6.QtWidgets import *
+from PyQt6.QtCore import QThread, pyqtSignal
 from BypassMenu import Ui_BypassMenu
 import json
 import pyperclip
 import requests
-from PyQt6.QtCore import QThread, pyqtSignal
 
 class Bypass(QDialog):
     def __init__(self, url, payload, header):
         super().__init__()
-        
+
         self.ui = Ui_BypassMenu()
         self.ui.setupUi(self)
-
-        self.run = False
 
         self.url = url
         self.payload = payload
         self.header = header
 
+        self.thread = BypassThread(self.url, self.payload, self.header)
+
         self.ui.start_button.clicked.connect(self.start)
         self.ui.stop_button.clicked.connect(self.stop)
+
+        self.thread.finished.connect(self.on_thread_finished)
 
         self.show()
 
     def start(self):
-        self.run = True
-        self.run_bypass()
+        self.thread.start()
         self.ui.label_2.setText("active")
 
     def stop(self):
-        self.run = False
-        self.ui.label_2.setText("inactive")
+        self.ui.label_2.setText("stopping...")
+        self.thread.stop_thread()  # Signal the thread to stop
 
-    def run_bypass(self):
-        while (self.run):
+    def on_thread_finished(self):
+        self.ui.label_2.setText("inactive")
+        pyperclip.copy('')
+
+class BypassThread(QThread):
+    finished = pyqtSignal()  
+
+    def __init__(self, url, payload, header):
+        super().__init__()
+        self.url = url
+        self.payload = payload
+        self.header = header
+        self._stop_flag = False
+
+    def run(self):
+        while not self._stop_flag:
             command = pyperclip.waitForNewPaste()
             if command.startswith("/c"):
                 prompt = command[3:]
@@ -46,6 +61,12 @@ class Bypass(QDialog):
                 print(data)
                 print(f"prompt: {prompt}\nreply: {content}")
                 pyperclip.copy(content)
+
+        self.finished.emit() 
+
+    def stop_thread(self):
+        self._stop_flag = True
+        pyperclip.copy("/c Stopping... (reply with one word)")
 
 if __name__ == "__main__":
     import sys

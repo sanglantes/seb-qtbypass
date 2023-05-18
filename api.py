@@ -32,6 +32,12 @@ class APIConfig(QDialog):
 
         self.show()
 
+    def append_text_with_font(self, text, font_size):
+        font = self.ui.textBrowser.currentFont()
+        font.setPointSize(font_size)
+        self.ui.textBrowser.setCurrentFont(font)
+        self.ui.textBrowser.append(text)
+
     def handle_combo_box(self, index):
         urls = {
             0: "https://openai80.p.rapidapi.com/chat/completions",
@@ -59,6 +65,7 @@ class APIConfig(QDialog):
                 ]
             },
         }
+
         headers = {
             0: {
                 "content-type": "application/json",
@@ -86,7 +93,8 @@ class APIConfig(QDialog):
     def start_verification(self):
         self.api_key = self.ui.lineEdit_2.text().strip()
         self.handle_combo_box(self.ui.mirror_box.currentIndex())
-        self.ui.textBrowser.append("INFO: Verifying key... (this uses a prompt)")
+        #self.ui.textBrowser.append("INFO: Verifying key... (this uses a prompt)")
+        self.append_text_with_font("INFO: Verifying key... (this uses a prompt)", 9)  # Example usage
 
         self.worker_thread.set_api_key(self.api_key)
         self.worker_thread.set_variables(self.url, self.payload, self.header)  # Pass variables to WorkerThread
@@ -94,12 +102,13 @@ class APIConfig(QDialog):
 
     def handle_response(self, response):
         if response.status_code != 200:
-            self.ui.textBrowser.append(f"ERROR: Received response status {response.status_code}")
+            self.append_text_with_font(f"ERROR: Received response status {response.status_code}", 9)
+
             message = response.json().get('message')
             if message:
-                self.ui.textBrowser.append(f"INFO: {message} (try a mirror)")
+                self.append_text_with_font(f"INFO: {message} (try a mirror)", 9)  # Example usage
         else:
-            self.ui.textBrowser.append("INFO: Successfully verified key")
+            self.append_text_with_font("INFO: Successfully verified key", 9)
             if self.bypass_window is None:
                 self.bypass_window = Bypass(self.url, self.payload, self.header)
             else:

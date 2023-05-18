@@ -1,4 +1,4 @@
-from PyQt6.QtWidgets import QApplication, QMainWindow
+from PyQt6.QtWidgets import QApplication, QMainWindow, QMessageBox
 from MainWindow import Ui_MainWindow
 from api import APIConfig
 
@@ -11,6 +11,7 @@ class Main(QMainWindow):
 
         self.api_widget = None
         self.ui.pushButton.clicked.connect(self.gpt_api)
+        self.ui.config_wfram.clicked.connect(self.in_progress)
 
         self.show()
 
@@ -22,6 +23,9 @@ class Main(QMainWindow):
 	        self.api_widget.raise_()
 	        self.api_widget.activateWindow()
 
+    def in_progress(self):
+        message = "This feature is not available yet."
+        QMessageBox.information(self, "WolframAlpha API", message)
 
 if __name__ == "__main__":
     import sys
