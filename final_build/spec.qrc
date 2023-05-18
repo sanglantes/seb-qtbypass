@@ -1,6 +1,0 @@
-<RCC>
-  <qresource prefix="/" >
-    <file>openai.png</file>
-    <file>wolfram.png</file>
-  </qresource>
-</RCC>
